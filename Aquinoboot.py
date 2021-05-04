@@ -12,9 +12,8 @@ def painel():
         [sg.T('Senha: ', size=(7,0)), sg.Input(size=(15, 0),  password_char='*' ,key='_pass_')],
         [sg.T('HashTag: ', size=(7,0)), sg.Input(size=(15, 0), key='_tag_')],
         [sg.Checkbox('Google Chrome', key='_chrome_'), sg.Checkbox('Firefox', key='_firefox_')],
-        [sg.Text('Informe uma lista de comentários:')], 
+        [sg.Text('Informe uma lista de comentários:')],
         [sg.InputText(size=(28,), key='_ListComent_')],
-
     ]
 
     botoes = [
@@ -86,7 +85,6 @@ def painel():
                 initboot(_username_, _pass_, _tag_, navegador, _ListComent_)
                  
 def initboot(_username_, _pass_, _tag_, navegador, _ListComent_):
-    
     Inicie_boot = InstagramBot(_username_, _pass_, _tag_, navegador, _ListComent_)
     Inicie_boot.login()
         
@@ -94,8 +92,6 @@ def initboot(_username_, _pass_, _tag_, navegador, _ListComent_):
 class InstagramBot:
   
     def __init__(self, username, password, tag_comment, navegador, ListComent):
-
-        #lista = ListComent
 
         self.username = username
         self.password = password
