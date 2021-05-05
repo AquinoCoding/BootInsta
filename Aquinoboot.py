@@ -38,8 +38,6 @@ def painel():
     _ListComent_ = values['_ListComent_']
 
     _ListComent_ = _ListComent_.split(',')
-    print(type(_ListComent_))
-    print(_ListComent_)
     
     if events == sg.WINDOW_CLOSED:
         exit()
@@ -157,24 +155,27 @@ class InstagramBot:
         [href for href in pic_hrefs if hashtag in href]
         print(hashtag + ' fotos ' + str(len(pic_hrefs)))
         
-        # loop de img
+        # Contadores curtidas em definição 0
+        contador_curt = 0
 
+        # Contadores Comentários em definição 0
+        contador_coment = 0
+
+        # loop de img
         for pic_hrefs in pic_hrefs:
             referencia = driver.get(pic_hrefs)
 
             # Execução de curtidas dentro do loop
-            def curtida(self):
+            def curtida(self, contador_curt):
 
                 driver = self.driver
-
-                # Contadores curtidas em definição 0
-                contador_curt = 0
+                #contador_curt = self.contador_curt
                 
                 # Configuração para curtir conforme a lista de opção informada
                 try:
                     driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button').click()
-                    print('curtiu')
-                    contador_curt += 1
+                    print(f'Número de curtidas: {contador_curt}')
+                    
 
                     driver.find_element_by_class_name('RxpZH').click()
                     time.sleep(3)
@@ -185,14 +186,12 @@ class InstagramBot:
                     print('Erro ao curtir')
                     time.sleep(5)
             
-            def coment(self):
+            def coment(self, contador_coment):
 
-                self.ListComent = ListComent
+                ListComent = self.ListComent
                 driver = self.driver
-
-                # Contadores Comentários em definição 0
-                contador_coment = 0
-                
+                #self.contador_coment = contador_coment
+        
                 # Definidor de comentário a ser usado
                 # Aqui se defini qual comentáio será utilizado conforme a lista informada
                 len_valor  = len(ListComent) - 1 
@@ -202,10 +201,7 @@ class InstagramBot:
                 try:
                     driver.find_element_by_xpath("//textarea[@placeholder='Adicione um comentário...']").send_keys(comentario)
                     time.sleep(3)
-                    print(f'Comentou: {comentario}')
-
-                    # Aqui se conta quantos comentários fora executados
-                    contador_coment += 1
+                    print(f'Comentário de número: {contador_coment}, Comentou: {comentario}')
 
                 # Caso erro do Loop|
                 # Configurado para pular img com erro
@@ -229,14 +225,18 @@ class InstagramBot:
                     print('Erro ao mudar de postagem')
                     time.sleep(5)
 
-            curtida(self)
-            coment(self)
-            _time_(self)
-            
-        
-        
+            # Aqui se conta quantos Curtidas fora executados
+            contador_curt += 1
+            curtida(self, contador_curt)
 
-        print(f'Houve {contador_curt} curtidas\n Houve {contador_coment}')
+            # Aqui se conta quantos comentários fora executados
+            contador_coment += 1
+            coment(self, contador_coment)
+
+            _time_(self)
+
+
+        #print(f'Houve {contador_curt} curtidas\n Houve {contador_coment}')
         print('Encerrando...')
 
 painel()

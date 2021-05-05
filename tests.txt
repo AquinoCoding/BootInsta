@@ -1,1 +1,6 @@
 Testes da minha aplicação
+
+Atualização --version T02.06D05.05.21
+    *Atualização no contador de curtidas e comentários
+     no Shell de comando
+--Bem Sucessida--
