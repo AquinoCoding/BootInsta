@@ -107,7 +107,7 @@ class InstagramBot:
 
     def login(self):
         driver = self.driver
-        driver.get("https://www.instagram.com/")
+        driver.get('https://www.instagram.com/accounts/login/')
         time.sleep(5)
 
         # Entrada para conectar
@@ -115,19 +115,16 @@ class InstagramBot:
         botao_login.click()'''
 
         # Aplicar Username
-        campo_usuario = driver.find_element_by_xpath(
-            "//input[@name='username']")
-        campo_usuario.click()
-        campo_usuario.clear()
-        campo_usuario.send_keys(self.username)
+        campo_usuario = driver.find_element_by_name(
+            'username').send_keys(self.username)
 
         # Aplicar Password
-        campo_password = driver.find_element_by_xpath(
-            "//input[@name='password']")
-        campo_password.click()
-        campo_password.clear()
-        campo_password.send_keys(self.password)
-        campo_password.send_keys(Keys.RETURN)
+        campo_password = driver.find_element_by_name(
+            'password').send_keys(self.password)
+
+        time.sleep(1)
+        driver.find_element_by_name('password').send_keys(Keys.RETURN)
+        
         time.sleep(5)
         self.action_hastag(self.tag_comment, self.ListComent)
 
@@ -234,12 +231,12 @@ class InstagramBot:
             coment(self, contador_coment)
 
             _time_(self)
+            if contador_coment == 17:
+                break
 
 
         #print(f'Houve {contador_curt} curtidas\n Houve {contador_coment}')
         print('Encerrando...')
 
 painel()
-'''
-Inicie_boot = InstagramBot('dwatchpro', 'Lucas@1230', 'watch')
-Inicie_boot.login()'''
+#initboot('dwatchpro', 'Lucas@1230', 'carros', 1, '_ListComent_')
