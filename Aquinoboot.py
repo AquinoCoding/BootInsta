@@ -239,4 +239,4 @@ class CurtComet:
         print('Encerrando...')
 
 painel()
-#initboot('dwatchpro', '*****', 'carros', 1, '_ListComent_')
+#initboot('dwatchpro', '*******', 'carros', 1, '_ListComent_')

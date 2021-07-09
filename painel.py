@@ -5,7 +5,7 @@ from PySimpleGUI.PySimpleGUI import Element
 def painelPrincipal():
 
     bottom = [
-        [sg.Button('Seguidores', size=(20,3)), sg.B('Curtidas & Comentários', size=(20,3))],
+        [sg.Button('Seguidores', size=(20,3), key='_Follow_'), sg.B('Curtidas & Comentários', size=(20,3), key='_Like_')],
     ]
 
     layout = [
@@ -15,10 +15,19 @@ def painelPrincipal():
 
     Janela = sg.Window('Seleção', layout, element_justification='center', size=(450, 250))
 
-    evento, valor = Janela.Read()
+    events, values = Janela.Read()
 
     if events == sg.WINDOW_CLOSED:
         exit()
+    
+    elif events == '_Like_':
+        Janela.close()
+        painelLoginCC()
+    
+    elif events == '_Follow_':
+        Janela.close()
+        painelLoginFF()
+        
 
 
 def painelLoginFF():

@@ -116,7 +116,7 @@ insta = Follow('aquino.py', '******')
 time.sleep(3)
 
 # 1 Passo - fazer login
-insta.login()
+insta.login(
 
 # 2 Passo Buscar seguidores
 insta.buscar_seguidores(5)
