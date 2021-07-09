@@ -28,8 +28,6 @@ def painelPrincipal():
         Janela.close()
         painelLoginFF()
         
-
-
 def painelLoginFF():
     dados = [
         [sg.Text('Login: ', size=(7,0)), sg.Input(size=(15, 0), key='_username_')],
@@ -100,8 +98,7 @@ def painelLoginFF():
             navegador = 2
             if events == '_entrar_':
                 Janela.Close()
-                initboot(_username_, _pass_, navegador, _initFollow_)
-                 
+                initboot(_username_, _pass_, navegador, _initFollow_)              
 
 def painelLoginCC():
     
@@ -180,5 +177,4 @@ def painelLoginCC():
                 Janela.Close()
                 initboot(_username_, _pass_, _tag_, navegador, _ListComent_)
                  
-
 painelPrincipal()

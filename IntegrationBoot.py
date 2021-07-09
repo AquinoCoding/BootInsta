@@ -4,15 +4,6 @@ import time
 from random import randint
 import PySimpleGUI as sg
 
-
-
-
-
-
-
-
-
-
 # Boot para seguir
 
 class Follow:
@@ -119,7 +110,6 @@ class Follow:
                 i += 1
 
             time.sleep(2)
-
 
 # Boot de Curtidas e Seguidores
 
@@ -275,18 +265,36 @@ class CurtComet:
         print('Encerrando...')
 
 
-# Inicie_boot = CurtComet('360holly', 'Lucas@1230', 'biblia', 2, 'Venha conferir')
-# Inicie_boot.login()
+def initLike():
 
-# variavel com usuario + senha do instagram
-insta = Follow('aquino.py', 'Lucas@1230')
-time.sleep(3)
+    Inicie_boot = CurtComet('360holly', '******', 'biblia', 2, 'Venha conferir')
+    Inicie_boot.login()
 
-# 1 Passo - fazer login
-insta.login()
+def initFollow():
 
-# 2 Passo Buscar seguidores
-insta.buscar_seguidores(5)
+    # variavel com usuario + senha do instagram
+    Inicie_boot = Follow('360holly', '******')
+    time.sleep(3)
 
-# Segue os seguidores dos influencers
-insta.Seguir_usuarios(10)
+    # 1 Passo - fazer login
+    Inicie_boot.login()
+
+    # 2 Passo Buscar seguidores
+    Inicie_boot.buscar_seguidores(5)
+
+    # Segue os seguidores dos influencers
+    Inicie_boot.Seguir_usuarios(10)
+
+valor = input('Informe')
+
+if valor == '1':
+    initLike()
+else:
+    initFollow()
+
+
+
+
+
+
+
