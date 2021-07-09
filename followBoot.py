@@ -5,13 +5,13 @@ import time
 # Classe
 
 
-class InstagramBot:
+class Follow:
     def __init__(self, username, password):
         self.username = username
         self.password = password
 
         # quem sera o primeiro insta a ser aberto
-        self.userInitial = 'natansilva1104'
+        self.userInitial = ''
 
         self.driver = webdriver.Firefox(
             executable_path=r".\geckodriver\geckodriver.exe")
@@ -72,10 +72,12 @@ class InstagramBot:
     def Seguir_usuarios(self, number_to_follow):
         driver = self.driver
         cont = 1
+        Stooped = False
 
         for follower in self.followers:
             driver.get('https://instagram.com/' + follower)
             time.sleep(2)
+           
 
             if(len(driver.find_elements_by_xpath("//*[contains(text(), 'Esta conta é privada')]")) > 0):
                 # Se eles forem privados, não podemos ver sua lista de seguidores, então pule-os
@@ -90,13 +92,18 @@ class InstagramBot:
 
             i = 1
 
+            if Stooped == True:
+                break
+
             for follower in follow:
                 if(i != 1):
                     driver.execute_script("arguments[0].click();", follower)
                     print(f"seguiu {cont}")
                     cont += 1
                     if cont == 45:
+                        Stooped = True
                         break
+                        
                     time.sleep(1)
 
                 i += 1
@@ -105,7 +112,7 @@ class InstagramBot:
 
 
 # variavel com usuario + senha do instagram
-insta = InstagramBot('dwatchpro', 'Lucas@1230')
+insta = Follow('aquino.py', 'Lucas@1230')
 time.sleep(3)
 
 # 1 Passo - fazer login

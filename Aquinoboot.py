@@ -83,11 +83,11 @@ def painel():
                 initboot(_username_, _pass_, _tag_, navegador, _ListComent_)
                  
 def initboot(_username_, _pass_, _tag_, navegador, _ListComent_):
-    Inicie_boot = InstagramBot(_username_, _pass_, _tag_, navegador, _ListComent_)
+    Inicie_boot = CurtComet(_username_, _pass_, _tag_, navegador, _ListComent_)
     Inicie_boot.login()
         
 
-class InstagramBot:
+class CurtComet:
   
     def __init__(self, username, password, tag_comment, navegador, ListComent):
 
