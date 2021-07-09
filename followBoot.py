@@ -112,7 +112,7 @@ class Follow:
 
 
 # variavel com usuario + senha do instagram
-insta = Follow('aquino.py', 'Lucas@1230')
+insta = Follow('aquino.py', '******')
 time.sleep(3)
 
 # 1 Passo - fazer login
