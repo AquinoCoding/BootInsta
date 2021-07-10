@@ -4,18 +4,197 @@ import time
 from random import randint
 import PySimpleGUI as sg
 
-# Boot para seguir
+
+def painelPrincipal():
+
+    bottom = [
+        [sg.Button('Seguidores', size=(20,3), key='_Follow_'), sg.B('Curtidas & Comentários', size=(20,3), key='_Like_')],
+    ]
+
+    layout = [
+        [sg.Text('InstaBoot', font=50)],
+        [sg.Frame('', bottom, element_justification='center')],
+    ]
+
+    Janela = sg.Window('Seleção', layout, element_justification='center', size=(450, 150))
+
+    events, values = Janela.Read()
+
+    if events == sg.WINDOW_CLOSED:
+        exit()
+    
+    elif events == '_Like_':
+        Janela.close()
+        painelLoginCC()
+    
+    elif events == '_Follow_':
+        Janela.close()
+        painelLoginFF()
+        
+def painelLoginFF():
+    dados = [
+        [sg.Text('Login: ', size=(7,0)), sg.Input(size=(15, 0), key='_username_', justification='center')],
+        [sg.T('Senha: ', size=(7,0)), sg.Input(size=(15, 0),  password_char='*' ,key='_pass_', justification='center')],
+        [sg.Checkbox('Google Chrome', key='_chrome_'), sg.Checkbox('Firefox', key='_firefox_')],
+        [sg.Text('Informe um @: ', size=(7,0)), sg.Input(size=(15, 0), key='_initFollow_', justification='center', )],
+    ]
+
+    botoes = [
+        
+        [sg.B('Entrar', key='_entrar_')]
+    ]
+
+    layout = [
+        [sg.Fr('', dados)],
+        [sg.Frame('', botoes)]
+    ]
+
+    Janela = sg.Window('Tela de Login', layout,
+                           element_justification='center', size=(400, 200))
+
+    events, values = Janela.Read()
+
+    _username_ = values['_username_']
+    _pass_ = values['_pass_']
+    _firefox_ = values['_firefox_']
+    _chrome_ = values['_chrome_']
+    _initFollow_ = values['_initFollow_']
+    
+    if events == sg.WINDOW_CLOSED:
+        exit()
+    
+    if _chrome_ == True and _firefox_ == True:
+
+        layout= [
+            [sg.T('Informe apenas um Navegador')],
+            [sg.B('Firefox', key='_firefox_'), sg.B('Google Chrome', key='_Chrome_')]
+        ]
+
+        Janela_pop = sg.Window('Seleção de Navegador', layout,
+                           element_justification='center', size=(250, 100))
+
+        events, values = Janela_pop.Read()
+
+        if events == sg.WINDOW_CLOSED:
+            exit()
+
+        if events == '_Chrome_':
+            navegador = 1
+            Janela.Close()
+            Janela_pop.Close()
+            initFF(_username_, _pass_, navegador, _initFollow_)
+
+        if events == '_firefox_':
+            navegador = 2
+            Janela.Close()
+            Janela_pop.Close()
+            initFF(_username_, _pass_, navegador, _initFollow_)
+
+    else:
+        if _chrome_ == True:
+            navegador = 1
+            if events == '_entrar_':
+                Janela.Close()
+                initFF(_username_, _pass_, navegador, _initFollow_)
+
+        if _firefox_ == True:
+            navegador = 2
+            if events == '_entrar_':
+                Janela.Close()
+                initFF(_username_, _pass_, navegador, _initFollow_)              
+
+def painelLoginCC():
+    
+    dados = [
+        [sg.Text('Login: ', size=(7,0)), sg.Input(size=(15, 0), key='_username_')],
+        [sg.T('Senha: ', size=(7,0)), sg.Input(size=(15, 0),  password_char='*' ,key='_pass_')],
+        [sg.T('HashTag: ', size=(7,0)), sg.Input(size=(15, 0), key='_tag_')],
+        [sg.Checkbox('Google Chrome', key='_chrome_'), sg.Checkbox('Firefox', key='_firefox_')],
+        [sg.Text('Informe uma lista de comentários:')],
+        [sg.InputText(size=(28,), key='_ListComent_')],
+    ]
+
+    botoes = [
+        [sg.B('Entrar', key='_entrar_')]
+    ]
+
+    layout = [
+        [sg.Fr('', dados)],
+        [sg.Frame('', botoes)]
+    ]
+
+    Janela = sg.Window('Tela de Login', layout,
+                           element_justification='center', size=(400, 250))
+
+    events, values = Janela.Read()
+
+    _username_ = values['_username_']
+    _pass_ = values['_pass_']
+    _tag_ = values['_tag_']
+    _firefox_ = values['_firefox_']
+    _chrome_ = values['_chrome_']
+    _ListComent_ = values['_ListComent_']
+
+    _ListComent_ = _ListComent_.split(',')
+    
+    if events == sg.WINDOW_CLOSED:
+        exit()
+    
+    if _chrome_ == True and _firefox_ == True:
+
+        layout= [
+            [sg.T('Informe apenas um Navegador')],
+            [sg.B('Firefox', key='_firefox_'), sg.B('Google Chrome', key='_Chrome_')]
+        ]
+
+        Janela_pop = sg.Window('Seleção de Navegador', layout,
+                           element_justification='center', size=(250, 100))
+
+        events, values = Janela_pop.Read()
+
+        if events == sg.WINDOW_CLOSED:
+            exit()
+
+        if events == '_Chrome_':
+            navegador = 1
+            Janela.Close()
+            Janela_pop.Close()
+            initCC(_username_, _pass_, _tag_, navegador, _ListComent_)
+
+        if events == '_firefox_':
+            navegador = 2
+            Janela.Close()
+            Janela_pop.Close()
+            initCC(_username_, _pass_, _tag_, navegador, _ListComent_)
+
+    else:
+        if _chrome_ == True:
+            navegador = 1
+            if events == '_entrar_':
+                Janela.Close()
+                initCC(_username_, _pass_, _tag_, navegador, _ListComent_)
+
+        if _firefox_ == True:
+            navegador = 2
+            if events == '_entrar_':
+                Janela.Close()
+                initCC(_username_, _pass_, _tag_, navegador, _ListComent_)
 
 class Follow:
-    def __init__(self, username, password):
+    def __init__(self, username, password, navegador, _initFollow_):
         self.username = username
         self.password = password
+        self.navegador = navegador
+        self._initFollow_ = _initFollow_
 
-        # quem sera o primeiro insta a ser aberto
-        self.userInitial = ''
+        print(username, password, navegador, _initFollow_)
 
-        self.driver = webdriver.Firefox(
-            executable_path=r".\geckodriver\geckodriver.exe")
+        if navegador == 1:
+            self.driver = webdriver.Chrome(
+                executable_path=r".\geckodriver\chromedriver.exe")
+        else:
+            self.driver = webdriver.Firefox(
+                executable_path=r".\geckodriver\geckodriver.exe")
 
     # A função irá nos conectar ao Instagram
     def login(self):
@@ -40,11 +219,11 @@ class Follow:
     def buscar_seguidores(self, number_of_followers):
         driver = self.driver
 
-        driver.get('https://instagram.com/' + self.userInitial)
+        driver.get('https://instagram.com/' + self._initFollow_)
         time.sleep(2)
 
         driver.find_element_by_xpath(
-            '//a[@href="/' + self.userInitial + '/followers/"]').click()
+            '//a[@href="/' + self._initFollow_ + '/followers/"]').click()
 
         time.sleep(1)
 
@@ -111,7 +290,7 @@ class Follow:
 
             time.sleep(2)
 
-# Boot de Curtidas e Seguidores
+# Boot de Curtidas e Comentários
 
 class CurtComet:
   
@@ -122,6 +301,8 @@ class CurtComet:
         self.tag_comment = tag_comment
         self.navegador = navegador
         self.ListComent = ListComent
+
+        print(username, password, tag_comment, navegador, ListComent)
 
         if navegador == 1: 
             self.driver = webdriver.Chrome(
@@ -264,16 +445,19 @@ class CurtComet:
         #print(f'Houve {contador_curt} curtidas\n Houve {contador_coment}')
         print('Encerrando...')
 
+# Boot de Seguidores
 
-def initLike():
+def initCC(_username_, _pass_, _tag_, navegador, _ListComent_):
 
-    Inicie_boot = CurtComet('360holly', '******', 'biblia', 2, 'Venha conferir')
+    print(_username_, _pass_, _tag_, navegador, _ListComent_)
+    Inicie_boot = CurtComet(_username_, _pass_, _tag_, navegador, _ListComent_)
     Inicie_boot.login()
 
-def initFollow():
-
+def initFF(_username_, _pass_, navegador, _initFollow_):
+    
+    print(_username_, _pass_, navegador, _initFollow_)
     # variavel com usuario + senha do instagram
-    Inicie_boot = Follow('360holly', '******')
+    Inicie_boot = Follow(_username_, _pass_, navegador, _initFollow_)
     time.sleep(3)
 
     # 1 Passo - fazer login
@@ -285,12 +469,7 @@ def initFollow():
     # Segue os seguidores dos influencers
     Inicie_boot.Seguir_usuarios(10)
 
-valor = input('Informe')
-
-if valor == '1':
-    initLike()
-else:
-    initFollow()
+painelPrincipal()
 
 
 

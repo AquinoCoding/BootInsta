@@ -176,5 +176,7 @@ def painelLoginCC():
             if events == '_entrar_':
                 Janela.Close()
                 initboot(_username_, _pass_, _tag_, navegador, _ListComent_)
-                 
+
+
 painelPrincipal()
+
